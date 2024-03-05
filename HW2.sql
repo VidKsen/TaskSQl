@@ -25,7 +25,7 @@ select distinct(city) from city where city like 'L%a' and city not like '% %';
 --и стоимость которых превышает 1.00.
 --Платежи нужно отсортировать по дате платежа.
 
-select payment_date from payment where payment_date between '2005-06-17' and '2005-06-19 23:59:59' and amount > 1
+select payment_date from payment where payment_date::date between '2005-06-17' and '2005-06-19' and amount > 1
 order by payment_date;
 
 
