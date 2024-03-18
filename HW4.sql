@@ -23,8 +23,8 @@ SET search_path TO public;
  
 --СОЗДАНИЕ ТАБЛИЦЫ ЯЗЫКИ
 
-create table language(
-    language_id int auto_increment primary key ,
+create table languages(
+    language_id serial primary key,
     name_language varchar(50) not null unique 
 );
 
@@ -35,7 +35,7 @@ insert into languages (name_language) values ('English'),('Russian'),('French'),
 --СОЗДАНИЕ ТАБЛИЦЫ НАРОДНОСТИ
 
 create table nationality(
-    nationality_id int auto_increment primary key,
+    nationality_id serial primary key,
     name_nationality varchar(50) not null unique 
 );
 
@@ -46,7 +46,7 @@ insert into nationality (name_nationality) values ('Englishmen'),('Slavenes'),('
 --СОЗДАНИЕ ТАБЛИЦЫ СТРАНЫ
 
 create table country(
-    country_id int auto_increment primary key,
+    country_id serial primary key,
     name_country varchar(50) not null unique 
 );
 
@@ -56,11 +56,11 @@ insert into country (name_country) values ('English'),('Russia'),('French'),('Ge
 
 --СОЗДАНИЕ ПЕРВОЙ ТАБЛИЦЫ СО СВЯЗЯМИ
 
-CREATE TABLE language_nationality (
-    ln_id INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE language_nationality(
+    l_n_id serial PRIMARY KEY,
     language_id INT NOT NULL,
     nationality_id INT NOT NULL,
-    FOREIGN KEY (language_id) REFERENCES language(language_id),
+    FOREIGN KEY (language_id) REFERENCES languages(language_id),
     FOREIGN KEY (nationality_id) REFERENCES nationality(nationality_id)
 );
 
@@ -68,16 +68,16 @@ CREATE TABLE language_nationality (
 
 insert into language_nationality (language_id, nationality_id) values
 (1, 1), -- Предполагаю, что English язык связан с Englishmen народностью
-(2, 2), -- Russian с Russian
+(2, 2), -- Russian с Slavenes
 (3, 3), -- French с French
-(4, 4), -- German с German
-(5, 5); -- Italian с Italian
+(4, 4), -- German с Germans
+(5, 5); -- Italian с Italians
 
 
 --СОЗДАНИЕ ВТОРОЙ ТАБЛИЦЫ СО СВЯЗЯМИ
 
 CREATE TABLE nationality_country (
-    nc_id INT AUTO_INCREMENT PRIMARY KEY,
+    nc_id serial PRIMARY KEY,
     nationality_id INT NOT NULL,
     country_id INT NOT NULL,
     FOREIGN KEY (nationality_id) REFERENCES nationality(nationality_id),
@@ -86,13 +86,12 @@ CREATE TABLE nationality_country (
 
 --ВНЕСЕНИЕ ДАННЫХ В ТАБЛИЦУ СО СВЯЗЯМИ
 
-insert into nationality_country (nationality_id, country_id) values
+insert into nationality_country(nationality_id, country_id) values
 (1, 1), -- Предполагаю, Englishmen народность связана с English (исходя из предположения)
-(2, 2), -- Russian с Russia
-(3, 3), -- French с France (здесь предположим исправление на France)
-(4, 4), -- German с Germany
-(5, 5); -- Italian с Italy
-
+(2, 2), -- Slavenes с Russia
+(3, 3), -- French с France
+(4, 4), -- Germans с Germany
+(5, 5); -- Italians с Italy
 
 
 --======== ДОПОЛНИТЕЛЬНАЯ ЧАСТЬ ==============
